@@ -1,14 +1,23 @@
 package space
 
-const (
-	YEAR_EARTH   = 31557600.
-	YEAR_MERCURY = 7600543.81992
-	YEAR_VENUS   = 19414149.0522
-	YEAR_MARS    = 59354032.6901
-	YEAR_JUPITER = 374355659.124
-	YEAR_SATURN  = 929292362.885
-	YEAR_URANUS  = 2651370019.33
-	YEAR_NEPTUNE = 164.79132
-)
+type Planet string
 
-func Age()
+var lookup = map[Planet]float64{
+	"Earth":   31557600.0,
+	"Mercury": 7600543.81992,
+	"Venus":   19414149.0522,
+	"Mars":    59354032.6901,
+	"Jupiter": 374355659.124,
+	"Saturn":  929292362.885,
+	"Uranus":  2651370019.33,
+	"Neptune": 5200418560.03}
+
+func Age(seconds float64, planet Planet) float64 {
+	proportion, ok := lookup[planet]
+
+	if !ok {
+		return 0.
+	}
+
+	return seconds / proportion
+}
