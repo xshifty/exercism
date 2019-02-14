@@ -1,6 +1,8 @@
 package triangle
 
-import "math"
+import (
+	"math"
+)
 
 type Kind int
 
@@ -12,16 +14,10 @@ const (
 )
 
 func IsNaT(a, b, c float64) bool {
-	if math.IsNaN(a) || math.IsNaN(b) || math.IsNaN(c) {
-		return true
-	}
-
-	if math.IsInf(a, 0) || math.IsInf(b, 0) || math.IsInf(c, 0) {
-		return true
-	}
-
-	if (a <= 0) || (b <= 0) || (c <= 0) {
-		return true
+	for _, num := range []float64{a, b, c} {
+		if math.IsNaN(num) || math.IsInf(num, 0) || (num <= 0) {
+			return true
+		}
 	}
 
 	if (a > b+c) || (b > a+c) || (c > b+a) {
