@@ -10,16 +10,21 @@ func Convert(number int) string {
 	}
 
 	result := ""
-	factors := []int{3, 5, 7}
-	replacements := []string{"Pling", "Plang", "Plong"}
+	replacements := []struct {
+		factor int
+		word   string
+	}{
+		{3, "Pling"},
+		{5, "Plang"},
+		{7, "Plong"}}
 
-	for n, f := range factors {
-		if number < f {
+	for _, r := range replacements {
+		if number < r.factor {
 			break
 		}
 
-		if number%f == 0 {
-			result = fmt.Sprintf("%s%s", result, replacements[n])
+		if (number % r.factor) == 0 {
+			result = fmt.Sprintf("%s%s", result, r.word)
 		}
 	}
 
